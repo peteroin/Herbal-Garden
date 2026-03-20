@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Stage } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 
 function PlantModel({ modelPath }) {
   const { scene } = useGLTF(modelPath);
@@ -68,11 +68,10 @@ export default function ThreeModelStage({ modelPath }) {
             onError={handleCanvasError}
           >
             <color attach="background" args={["#bcd7ea"]} />
+            <Environment preset="forest" intensity={0.8} />
             <ambientLight intensity={0.5} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-            <Stage intensity={0.6} contactShadow={{ opacity: 0.7, blur: 2 }}>
-              <PlantModel modelPath={modelPath} />
-            </Stage>
+            <directionalLight position={[5, 10, 5]} intensity={1} castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048} />
+            <PlantModel modelPath={modelPath} />
             <OrbitControls autoRotate autoRotateSpeed={0.5} enablePan={false} minDistance={2} maxDistance={20} />
           </Canvas>
         </Suspense>

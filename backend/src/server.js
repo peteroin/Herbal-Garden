@@ -75,6 +75,14 @@ app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files (models, images, etc.) from public directory with CORS
+app.use('/models', express.static('public/models', {
+  setHeaders: (res, path) => {
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+}));
+
 // Connect to MongoDB
 connectDB();
 

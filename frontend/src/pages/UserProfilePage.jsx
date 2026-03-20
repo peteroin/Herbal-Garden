@@ -36,11 +36,14 @@ export default function UserProfilePage() {
 
   const fetchGardenData = async () => {
     try {
-      const [gardenRes, designsRes, careRes] = await Promise.all([
-        gardenAPI.getUserGarden().catch(() => null),
-        plannerAPI.getUserDesigns().catch(() => null),
-        careTrackerAPI.getCareStatistics().catch(() => null)
-      ]);
+      const gardenRes = await gardenAPI.getUserGarden().catch(() => null);
+      const designsRes = await plannerAPI.getUserDesigns().catch(() => null);
+      
+      // Only fetch care statistics if garden exists
+      let careRes = null;
+      if (gardenRes?.data?._id) {
+        careRes = await careTrackerAPI.getCareStatistics(gardenRes.data._id).catch(() => null);
+      }
 
       if (gardenRes?.data) setGarden(gardenRes.data);
       if (designsRes?.data) setDesigns(Array.isArray(designsRes.data) ? designsRes.data : []);

@@ -234,7 +234,7 @@ const plantsSeedData = [
     potentialBenefits: ["Memory enhancement", "Mental clarity", "Brain health", "Anxiety relief"],
     cautions: ["Generally well tolerated; may cause nausea in some"],
     tags: ["Cognitive Support", "Mental Clarity"],
-    image: "/images/brahmi.jpg",
+    image: "https://images.unsplash.com/photo-1584947550359-6ad3f1b6b74e?auto=format&fit=crop&q=80&w=800",
     cultivationNotes: "Thrives in moist conditions; often grown in water gardens"
   },
   {
@@ -253,7 +253,7 @@ const plantsSeedData = [
     potentialBenefits: ["Immune boosting", "Detoxification", "Fever reduction", "Digestive support"],
     cautions: ["Should not be used by those with autoimmune conditions"],
     tags: ["Immune Support", "Detox"],
-    image: "/images/guduchi.jpg",
+    image: "https://images.unsplash.com/photo-1583865829196-8d7b8fcea1d6?auto=format&fit=crop&q=80&w=800",
     cultivationNotes: "Grows as a woody climber; often harvested for stem and root"
   },
   {
@@ -272,7 +272,7 @@ const plantsSeedData = [
     potentialBenefits: ["Throat soothing", "Digestive support", "Respiratory health", "Anti-inflammatory"],
     cautions: ["May increase blood pressure in high doses; avoid with hypertension"],
     tags: ["Throat Support", "Respiratory Health"],
-    image: "/images/licorice.jpg",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800",
     cultivationNotes: "Takes 3 years to mature; prefers deep, well-drained soil"
   },
   {

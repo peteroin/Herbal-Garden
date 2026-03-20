@@ -12,6 +12,26 @@ export default function ThreeDModelViewerPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Construct full model URL for loading
+  const getFullModelUrl = (modelPath) => {
+    if (!modelPath) return null;
+    
+    // For local development, use local file path from public directory
+    if (import.meta.env.DEV) {
+      return modelPath; // Use relative path directly (e.g., "/models/tulsi.glb")
+    }
+    
+    // If it's already an absolute URL, return as-is
+    if (modelPath.startsWith('http://') || modelPath.startsWith('https://')) {
+      return modelPath;
+    }
+    
+    // For production, construct from API base URL
+    const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    const baseUrl = apiBase.replace('/api', ''); // Remove /api to get base URL
+    return baseUrl + modelPath;
+  };
+
   useEffect(() => {
     const fetchModel = async () => {
       try {
@@ -49,7 +69,7 @@ export default function ThreeDModelViewerPage() {
         title={model.title}
         copy="Explore interactive 3D models of medicinal herbs. Rotate, zoom, and examine botanical details."
       />
-      <ThreeModelStage modelPath={model.modelPath} />
+      <ThreeModelStage modelPath={getFullModelUrl(model.modelPath)} />
     </section>
   );
 }
