@@ -51,9 +51,6 @@ export default function ThreeDModelsPage() {
               <span className="px-4 py-2 bg-forest-700/80 rounded-full text-sm font-semibold">
                 High Detail
               </span>
-              <span className="px-4 py-2 bg-green-600/80 rounded-full text-sm font-semibold">
-                Responsive Design
-              </span>
             </div>
           </div>
         </div>
