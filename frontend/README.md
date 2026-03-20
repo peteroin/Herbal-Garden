@@ -46,7 +46,6 @@ VITE_PLANT_ID_API_KEY=your_api_key
 VITE_PIXABAY_API_KEY=your_api_key
 ```
 
-Without these keys, the app remains fully functional with all other features available.
 
 ## Content
 

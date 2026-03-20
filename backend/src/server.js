@@ -25,26 +25,43 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Dynamic CORS configuration to handle any localhost port
+// Parse allowed origins from environment variable
+const getAllowedOrigins = () => {
+  const allowedOriginsEnv = process.env.ALLOWED_ORIGINS;
+  if (!allowedOriginsEnv) return [];
+  return allowedOriginsEnv.split(',').map(url => url.trim());
+};
+
+const allowedOrigins = getAllowedOrigins();
+
+// Dynamic CORS configuration to handle localhost and production
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl requests)
+    // Allow requests with no origin (mobile apps, curl requests, Render health checks)
     if (!origin) return callback(null, true);
     
-    // Allow localhost on any port during development
-    if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('192.168')) {
+    // Development: Allow localhost on any port
+    if (process.env.NODE_ENV === 'development') {
+      if (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('192.168')) {
+        return callback(null, true);
+      }
+    }
+    
+    // Production: Check against ALLOWED_ORIGINS environment variable
+    if (allowedOrigins.length > 0 && allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     
-    // For production, use specific origins from env
-    if (process.env.ALLOWED_ORIGINS?.includes(origin)) {
-      return callback(null, true);
+    // If origin not allowed in production
+    if (allowedOrigins.length > 0 && !allowedOrigins.includes(origin)) {
+      return callback(new Error('Not allowed by CORS'));
     }
     
-    callback(null, true); // Allow for now, strict in production
+    // Fallback: allow for development
+    callback(null, true);
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   maxAge: 86400
 };

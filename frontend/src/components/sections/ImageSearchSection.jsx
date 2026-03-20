@@ -15,8 +15,8 @@ export default function ImageSearchSection() {
   const [result, setResult] = useState(null);
   const [imageResult, setImageResult] = useState("");
   const [matchedLocalPlant, setMatchedLocalPlant] = useState(null);
-  const plantIdApiKey = import.meta.env.VITE_PLANT_ID_API_KEY || "X6K7tGPpzrmfhmXXtzT5jAEQfDPPN4HUjKo19Vzs8oaWUFGG21";
-  const pixabayApiKey = import.meta.env.VITE_PIXABAY_API_KEY || "49412488-272474380016312727dd1b89a";
+  const plantIdApiKey = import.meta.env.VITE_PLANT_ID_API_KEY;
+  const pixabayApiKey = import.meta.env.VITE_PIXABAY_API_KEY;
 
   useEffect(() => {
     if (!file) {
